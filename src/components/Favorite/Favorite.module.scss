@@ -1,0 +1,23 @@
+.favorite {
+  margin-left: auto;
+  color: #848484;
+
+  .isFaved {
+    color: #fb4c40;
+  }
+
+  button {
+    outline: 0;
+    display: flex;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.1s ease-in;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}

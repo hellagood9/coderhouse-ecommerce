@@ -1,0 +1,119 @@
+.wrapper {
+  width: 100%;
+}
+
+.product {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #f2f2f2;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    letter-spacing: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    margin-top: 8px;
+  }
+
+  &__excerpt {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.75);
+    letter-spacing: 0;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+  }
+
+  &__image {
+    position: relative;
+
+    img {
+      min-width: 112px;
+      height: 112px;
+    }
+  }
+
+  &__price {
+    font-size: 14px;
+    height: 40px;
+    padding: 8px 16px;
+  }
+
+  &__badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    background: #000000;
+    border-radius: 50%;
+
+    font-weight: 700;
+    font-size: 10px;
+    color: #ffffff;
+    letter-spacing: 0;
+    line-height: 11px;
+  }
+}
+
+.price {
+  font-weight: 500;
+  color: #000;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 16px;
+}
+
+.price--discount {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+  letter-spacing: 0;
+  line-height: 16px;
+  text-decoration: line-through;
+  margin-right: 16px;
+}
+
+button,
+.delete {
+  outline: none;
+}
+
+.delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border-radius: 24px;
+  padding: 0 16px;
+  margin: 8px 0;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  line-height: 16px;
+  cursor: pointer;
+  position: relative;
+  color: #b5b5b5;
+
+  &:hover {
+    color: #ff7575;
+  }
+}

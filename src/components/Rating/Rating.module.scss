@@ -1,0 +1,13 @@
+.rating {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  color: #ffb900;
+  line-height: 16px;
+  font-size: 12px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}

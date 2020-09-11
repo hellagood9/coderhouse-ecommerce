@@ -1,0 +1,23 @@
+.top-nav {
+  display: flex;
+  align-items: center;
+  height: 112px;
+  padding: 8px;
+  border-top: 4px solid #006341;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.top-nav__middle {
+  margin: 0 16px;
+  height: 40px;
+  display: flex;
+  flex-grow: 1;
+}
+
+.top-nav__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: 0 16px;
+}
