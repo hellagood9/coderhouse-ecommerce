@@ -6,14 +6,14 @@ by Maximiliano A. Sussini
 
 ## Stack
 
-  - React: JS Library
-  - React Hooks APIs
-  - React Context
-  - React-router-dom: Routing
-  - Sass: Styling
-  - CSS Modules
-  - Firebase
-  
+- React: JS Library
+- React Hooks APIs
+- React Context
+- React-router-dom: Routing
+- Sass: Styling
+- CSS Modules
+- Firebase
+
 ### Installation
 
 Requires [Node.js](https://nodejs.org/) v11+ to run.
@@ -37,6 +37,14 @@ $ mv .env.example .env
 $ yarn start
 ```
 
+##### Important
+
+The .env file has 2 environment variables that needs to be filled in order the project to work
+properly with Firebase
+
+- REACT_APP_FIRESTORE_API_KEY
+- REACT_APP_FIRESTORE_APP_ID
+
 ### URL
 
 http://localhost:3000
@@ -45,12 +53,12 @@ http://localhost:3000
 
 Instructions on how to use them in your own application are linked below.
 
-| Route          | Info    |
-| -------------- | ------- |
-| /              | Homepage and product list
-| /products/:id  | Product details 
-| /category/:id  | Given category 
-| /cart          | Shopping cart
+| Route         | Info                               |
+| ------------- | ---------------------------------- |
+| /             | Homepage and product list          |
+| /products/:id | Product details                    |
+| /category/:id | List of products within a category |
+| /cart         | Shopping cart                      |
 
 ### Dependencies
 
@@ -58,12 +66,12 @@ Instructions on how to use them in your own application are linked below.
 
 - axios
 - firebase
-- classnames
+- classnames: Utility for conditionally joining classNames together
 - node-sass
-- prop-types
-- react-icons
+- prop-types: Runtime type checking for React props and similar objects
+- react-icons:
 - react-router-dom
-- tiny-skeleton-loader-react
+- tiny-skeleton-loader-react: Skeleton loader component (optimistic UI)
 
 ### Todo
 
@@ -73,10 +81,10 @@ Instructions on how to use them in your own application are linked below.
 - Form validation
 
 ### Considerations
-- This is a basic final project corresponding to a course of react. No optimizations have been taken into account in general 
 
-License
-----
+- This is a basic final project corresponding to a course of react. No optimizations have been taken into account in general
+
+## License
 
 MIT
 

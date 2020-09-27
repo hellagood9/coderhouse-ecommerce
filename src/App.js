@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import Cart from "./pages/Cart/Cart";
+import Success from "./pages/Success/Success";
 
 import "./App.scss";
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/products/:id" component={ProductDetails} />
             <Route path="/category/:id" component={Home} />
             <Route path="/cart" component={Cart} />
+            <Route path="/success" component={Success} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Router>

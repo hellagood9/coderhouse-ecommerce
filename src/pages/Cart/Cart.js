@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -10,45 +10,67 @@ import { useCartContext } from "../../context/CartProvider";
 
 import Layout from "../../components/Common/Layout/Layout";
 import CartItem from "../../components/CartItem/CartItem";
+import CartFooter from "../../components/CartFooter/CartFooter";
+import Alert from "../../components/Alert/Alert";
+import Spinner from "../../components/Spinner/Spinner";
+
+import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
+import { MdBlock } from "react-icons/md";
 
 import styles from "./Cart.module.scss";
 
-const Cart = () => {
-  const { items } = useCartContext();
+const Cart = (props) => {
+  const { items, resetCart } = useCartContext();
 
-  const getTotal = () => {
-    return items.reduce((prev, next) => prev + next.qty * next.price, 0);
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [buyer, setBuyer] = useState({});
+
+  const getTotal = () =>
+    items &&
+    items.reduce(
+      (ac, cv) =>
+        ac +
+        (cv.priceDiscount > 0 ? cv.priceDiscount : cv.price).toFixed(2) *
+          cv.qty,
+      0
+    );
 
   const createOrder = async () => {
     const db = getFirestore();
-
-    const mockedBuyer = {
-      name: "Max",
-      phone: 645456433,
-      email: "max@coder.com",
-    };
-
-    const yeah = items.map((item) => ({ id: item.id, qty: item.qty }));
-
-    console.log("yeah", yeah);
-
     const orders = db.collection("orders");
 
     const newOrder = {
-      buyer: mockedBuyer,
+      buyer,
       items,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       total: getTotal(),
     };
 
+    setIsLoading(true);
+
     try {
       const { id } = await orders.add(newOrder);
-      // TODO: dar al user su ID de orden autogenerada
-      console.log("id", id);
-    } catch (err) {
-      console.log("Error", err);
+
+      setIsLoading(false);
+      resetCart();
+
+      props.history.push({
+        pathname: "/success",
+        data: {
+          id,
+        },
+      });
+    } catch (error) {
+      setError(true);
+      setIsLoading(false);
     }
+  };
+
+  const handleSubmit = (formData) => {
+    setIsFormSubmitted(true);
+    setBuyer(formData);
   };
 
   return (
@@ -63,10 +85,8 @@ const Cart = () => {
       >
         <h1 className={styles["title"]}>Cart page</h1>
 
-        <button onClick={createOrder}>Checkout</button>
-
         {!items.length && (
-          <div className={styles["empty-cart__block"]}>
+          <div className={styles["feedback-block"]}>
             <h4>Your cart is empty</h4>
             <h3>Need some inspiration?</h3>
 
@@ -79,7 +99,23 @@ const Cart = () => {
           </div>
         )}
 
+        {error && (
+          <Alert title="Argh :/" type="danger" icon={MdBlock}>
+            <p>The order couldn't be created!</p>
+          </Alert>
+        )}
+
+        {isLoading && <Spinner />}
+
         <CartItem items={items} />
+
+        {!!items.length && <CheckoutForm onFormSubmit={handleSubmit} />}
+
+        <CartFooter
+          items={items}
+          createOrder={createOrder}
+          isReady={isFormSubmitted}
+        />
       </div>
     </Layout>
   );

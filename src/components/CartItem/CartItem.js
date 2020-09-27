@@ -17,9 +17,9 @@ const CartItem = () => {
   };
 
   return (
-    <ul>
-      {items &&
-        items.map((item) => {
+    items.length > 0 && (
+      <ul>
+        {items.map((item) => {
           const {
             id,
             title,
@@ -84,7 +84,8 @@ const CartItem = () => {
             </li>
           );
         })}
-    </ul>
+      </ul>
+    )
   );
 };
 

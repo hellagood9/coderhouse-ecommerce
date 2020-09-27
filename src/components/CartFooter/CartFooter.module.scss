@@ -1,0 +1,22 @@
+.cart {
+  &__actions {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 16px 8px;
+    background: #006e41;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.subtotal {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0 16px;
+  letter-spacing: 1px;
+}

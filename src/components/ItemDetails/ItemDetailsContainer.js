@@ -19,7 +19,6 @@ const ItemDetailsContainer = ({ id }) => {
 
     const fetchItem = async () => {
       const myItem = itemCollection.doc(productId);
-      // const myItem = itemCollection.doc("cIvrVsT5lgLiG44qzu9Cn");
 
       try {
         const data = await myItem.get();
