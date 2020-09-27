@@ -78,7 +78,7 @@ Instructions on how to use them in your own application are linked below.
 - Improve the design/layout
 - Testings
 - Implement Redux
-- Form validation
+- Auth
 
 ### Considerations
 

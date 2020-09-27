@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Button from "../../components/Button/Button";
+import Button from "../Button/Button";
 
 import { validate } from "./validate";
 
@@ -9,18 +9,39 @@ import styles from "./CheckoutForm.module.scss";
 const CheckoutForm = ({ onFormSubmit }) => {
   const [isFormValid, setIsFormValid] = useState(null);
   const [errors, setErrors] = useState({});
-  const [isTouched, setIsTouched] = useState(false);
 
   const initialFormState = {
-    name: "",
-    lastname: "",
-    phone: "",
-    email: "",
-    emailConfirm: "",
+    name: {
+      value: "",
+      isTouched: false,
+    },
+    lastname: {
+      value: "",
+      isTouched: false,
+    },
+    phone: {
+      value: "",
+      isTouched: false,
+    },
+    email: {
+      value: "",
+      isTouched: false,
+    },
+    emailConfirm: {
+      value: "",
+      isTouched: false,
+    },
   };
 
   const [formState, setFormState] = useState(initialFormState);
   const { name, lastname, phone, email, emailConfirm } = formState;
+  const {
+    name: { value: nameValue },
+    lastname: { value: lastnameValue },
+    phone: { value: phoneValue },
+    email: { value: emailValue },
+    emailConfirm: { value: emailConfirmValue },
+  } = formState;
 
   const isInvalid =
     Object.keys(validate({ name, lastname, phone, email, emailConfirm }))
@@ -37,33 +58,36 @@ const CheckoutForm = ({ onFormSubmit }) => {
   const handleOnChange = ({ target: { name, value } }) => {
     setFormState({
       ...formState,
-      [name]: value,
+      [name]: { ...formState[name], value },
     });
   };
 
   const handleOnBlur = (e) => {
-    setIsTouched(true);
+    setFormState({
+      ...formState,
+      [e.target.name]: { ...formState[e.target.name], isTouched: true },
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onFormSubmit({ name, lastname, phone, email });
+
+    const buyer = {
+      name: nameValue,
+      lastname: lastnameValue,
+      phone: phoneValue,
+      email: emailValue,
+    };
+
+    onFormSubmit(buyer);
 
     return isInvalid ? setIsFormValid(false) : setIsFormValid(true);
   };
 
-  const Error = ({ field }) =>
-    isTouched &&
-    errors && (
-      <div className={styles["error"]}>
-        <small>{errors[field]}</small>
-      </div>
-    );
-
-  const userDetails = (details) =>
+  const UserDetails = ({ details }) =>
     details.map((detail) => {
       return (
-        <div className={styles["pre-checkout"]}>
+        <div key={detail.name} className={styles["pre-checkout"]}>
           <span className={styles["field-label"]}>{detail.label}</span>
           <span className={styles["field-value"]}>{detail.name}</span>
         </div>
@@ -73,19 +97,19 @@ const CheckoutForm = ({ onFormSubmit }) => {
   const detailFields = [
     {
       label: "Name",
-      name: name,
+      name: nameValue,
     },
     {
       label: "Lastname",
-      name: lastname,
+      name: lastnameValue,
     },
     {
       label: "Phone",
-      name: phone,
+      name: phoneValue,
     },
     {
       label: "Email",
-      name: email,
+      name: emailValue,
     },
   ];
 
@@ -94,7 +118,7 @@ const CheckoutForm = ({ onFormSubmit }) => {
       {isFormValid ? (
         <>
           <h1 className={styles["subtitle"]}>Your Details</h1>
-          {userDetails(detailFields)}
+          <UserDetails details={detailFields} />
         </>
       ) : (
         <>
@@ -111,9 +135,14 @@ const CheckoutForm = ({ onFormSubmit }) => {
                 autoComplete="off"
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
-                value={name}
+                value={nameValue}
               />
-              <Error field="name" />
+
+              {name.isTouched && errors.name && (
+                <div className={styles["error"]}>
+                  <small>{errors.name}</small>
+                </div>
+              )}
             </div>
 
             <div className={styles["input-row"]}>
@@ -126,9 +155,14 @@ const CheckoutForm = ({ onFormSubmit }) => {
                 autoComplete="off"
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
-                value={lastname}
+                value={lastnameValue}
               />
-              <Error field="lastname" />
+
+              {lastname.isTouched && errors.lastname && (
+                <div className={styles["error"]}>
+                  <small>{errors.lastname}</small>
+                </div>
+              )}
             </div>
 
             <div className={styles["input-row"]}>
@@ -141,9 +175,13 @@ const CheckoutForm = ({ onFormSubmit }) => {
                 autoComplete="off"
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
-                value={phone}
+                value={phoneValue}
               />
-              <Error field="phone" />
+              {phone.isTouched && errors.phone && (
+                <div className={styles["error"]}>
+                  <small>{errors.phone}</small>
+                </div>
+              )}
             </div>
 
             <div className={styles["input-row"]}>
@@ -156,9 +194,13 @@ const CheckoutForm = ({ onFormSubmit }) => {
                 autoComplete="off"
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
-                value={email}
+                value={emailValue}
               />
-              <Error field="email" />
+              {email.isTouched && errors.email && (
+                <div className={styles["error"]}>
+                  <small>{errors.email}</small>
+                </div>
+              )}
             </div>
 
             <div className={styles["input-row"]}>
@@ -171,9 +213,13 @@ const CheckoutForm = ({ onFormSubmit }) => {
                 autoComplete="off"
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
-                value={emailConfirm}
+                value={emailConfirmValue}
               />
-              <Error field="emailConfirm" />
+              {emailConfirm.isTouched && errors.emailConfirm && (
+                <div className={styles["error"]}>
+                  <small>{errors.emailConfirm}</small>
+                </div>
+              )}
             </div>
 
             <div className={styles["input-row"]}>
