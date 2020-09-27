@@ -83,6 +83,11 @@ Instructions on how to use them in your own application are linked below.
 ### Considerations
 
 - This is a basic final project corresponding to a course of react. No optimizations have been taken into account in general
+- Not all existing categories have products. These categories appear as examples and you can create more products that belong to these.
+Examples of categories with products:
+* DRINKS > Hot Coffees
+* FOOD > Bakery
+- Use "storage" to keep products in the cart after refreshing or closing the browser tab
 
 ## License
 
